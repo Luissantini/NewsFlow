@@ -1,4 +1,4 @@
-package com.santini.newsflow.presentation
+package com.santini.newsflow.presentation.new_list
 
 import com.santini.newsflow.domain.model.Article
 

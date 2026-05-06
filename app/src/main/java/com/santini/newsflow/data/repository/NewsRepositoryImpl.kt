@@ -11,7 +11,6 @@ class NewsRepositoryImpl(
 ) : NewsRepository {
     override suspend fun getTopHeadlines(country: String): List<Article> {
         val response = apiService.getTopHeadlines(country = country)
-        // Convertimos la lista de DTOs en una lista de Artículos de dominio
         return response.articles.map { it.toDomain() }
     }
 }

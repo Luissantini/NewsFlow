@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,6 +20,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+       val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        val apiKey = properties.getProperty("NEWS_API_KEY")
+
+        // val apiKey: String = project.findProperty("NEWS_API_KEY") as? String ?: ""
+
+        // Creamos una variable que podrás usar en Kotlin
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -38,6 +48,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -54,6 +65,7 @@ dependencies {
     implementation(libs.retrofit.gson)
     implementation(libs.okhttp.logging)
     implementation(libs.hilt.android)
+    implementation(libs.coil.compose)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     testImplementation(libs.junit)
