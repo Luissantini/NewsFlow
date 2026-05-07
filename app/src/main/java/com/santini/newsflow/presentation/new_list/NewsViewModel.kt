@@ -23,18 +23,17 @@ class NewsViewModel @Inject constructor(
 
     fun getArticles() {
         viewModelScope.launch {
-            state = state.copy(isLoading = true)
-            try {
-                val result = repository.getTopHeadlines("us")
+            state = state.copy(isLoading = true, error = null)
+            val result = repository.getTopHeadlines("us")
+            if (result.isNotEmpty()) {
                 state = state.copy(
                     articles = result,
                     isLoading = false
                 )
-
-            } catch (e: Exception) {
+            } else {
                 state = state.copy(
-                    error = e.message,
-                    isLoading = false
+                    isLoading = false,
+                    error = "No hay noticias disponibles, revisa tu conexión."
                 )
             }
         }

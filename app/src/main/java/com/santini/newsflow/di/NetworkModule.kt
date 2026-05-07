@@ -1,6 +1,7 @@
 package com.santini.newsflow.di
 
-import com.santini.newsflow.data.remote.dto.NewsApiService
+import com.santini.newsflow.data.local.NewsDatabase
+import com.santini.newsflow.data.remote.NewsApiService
 import com.santini.newsflow.data.repository.NewsRepositoryImpl
 import com.santini.newsflow.domain.repository.NewsRepository
 import dagger.Module
@@ -27,7 +28,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideNewsRepository(apiService: NewsApiService): NewsRepository {
-        return NewsRepositoryImpl(apiService)
+    fun provideNewsRepository(
+        apiService: NewsApiService,
+        db: NewsDatabase
+    ): NewsRepository {
+        return NewsRepositoryImpl(apiService, db)
     }
 }

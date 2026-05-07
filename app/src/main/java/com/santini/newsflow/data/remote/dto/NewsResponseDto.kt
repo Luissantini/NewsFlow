@@ -1,6 +1,6 @@
 package com.santini.newsflow.data.remote.dto
 
-data class NewsResponse(
+data class NewsResponseDto(
     val articles: List<ArticleDto>,
     val status: String,
     val totalResults: Int

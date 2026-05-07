@@ -6,12 +6,12 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.santini.newsflow"
-    compileSdk = 35 // Usamos 35 que es la estable actual, o 34.
-
+    compileSdk = 35
     defaultConfig {
         applicationId = "com.santini.newsflow"
         minSdk = 24
@@ -23,10 +23,6 @@ android {
        val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
         val apiKey = properties.getProperty("NEWS_API_KEY")
-
-        // val apiKey: String = project.findProperty("NEWS_API_KEY") as? String ?: ""
-
-        // Creamos una variable que podrás usar en Kotlin
         buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
@@ -66,6 +62,8 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.hilt.android)
     implementation(libs.coil.compose)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     testImplementation(libs.junit)
@@ -75,5 +73,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+    ksp(libs.androidx.room.compiler)
 
 }
